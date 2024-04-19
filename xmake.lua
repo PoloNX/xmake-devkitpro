@@ -1,6 +1,8 @@
 includes("toolchain/*.lua")
+includes("package/*.lua")
 
-add_requires("pacman::switch-curl")
+
+add_requires("switch-curl")
 
 target("example")
     set_arch("aarch64")
@@ -15,7 +17,6 @@ target("example")
     set_values("switch.icon", "icon.jpg")
 
     add_files("example/*.cpp")
-    set_targetdir("Out")
 
     add_packages("switch-curl")
 

@@ -17,8 +17,8 @@ toolchain("devkita64")
         return
     end
 
-    add_linkdirs(path.join(DEVKITPRO, "/libnx/lib"))
-    add_includedirs(path.join(DEVKITPRO, "/libnx/include"))
+    add_linkdirs(path.join(DEVKITPRO, "/libnx/lib"), path.join(DEVKITPRO, "/portlibs/switch/lib"))
+    add_includedirs(path.join(DEVKITPRO, "/libnx/include"), path.join(DEVKITPRO, "/portlibs/switch/include"))
 
     on_load(function(toolchain)
         local devkita64 = toolchain:arch()
