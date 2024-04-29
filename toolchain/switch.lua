@@ -70,11 +70,26 @@ rule("switch")
         import("core.base.option")
         import("core.project.config")
 
-        local ryujinx = "Ryujinx"
-        assert(ryujinx, "Ryujinx not in PATH")
+        cprint("${color.build.target}Running " .. option.get("nx"))
 
-        local target_file = target:targetfile()
-        local executable = target_file .. ".nro"
+        if option.get("nx") ~= nil and option.get("nx") ~= "" then
+            local nxlink = "nxlink"
+            assert(nxlink, "nxlink not in PATH")
 
-        os.runv(ryujinx, {executable})
+            local target_file = target:targetfile()
+            local nro_file = target_file .. ".nro"
+
+            local nxlink_args = {"-a", config.get("nx"), "-s", nro_file}
+
+            vprint(nxlink, table.unpack(nxlink_args))
+            os.execv(nxlink, nxlink_args)
+        else
+            local ryujinx = "Ryujinx"
+            assert(ryujinx, "Ryujinx not in PATH")
+
+            local target_file = target:targetfile()
+            local executable = target_file .. ".nro"
+
+            os.runv(ryujinx, {executable})
+        end
     end)
